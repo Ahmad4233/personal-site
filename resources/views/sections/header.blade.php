@@ -11,14 +11,14 @@
 
             <!-- DESKTOP NAVIGATION -->
             <nav class="nav-menu">
-                <a href="{{ route('home') }}" class="nav-item {{ request()->is('/') ? 'active' : '' }}">Home</a>
-                <a href="{{ route('about') }}" class="nav-item {{ request()->is('about') ? 'active' : '' }}">About</a>
-                <a href="{{ route('portfolio') }}" class="nav-item {{ request()->is('portfolio') ? 'active' : '' }}">Projects</a>
-                <a href="{{ route('contact') }}" class="nav-item {{ request()->is('contact') ? 'active' : '' }}">Contact</a>
+                <a href="{{ url('/') }}" class="nav-item {{ request()->is('/') ? 'active' : '' }}">Home</a>
+                <a href="{{ url('/about') }}" class="nav-item {{ request()->is('about') ? 'active' : '' }}">About</a>
+                <a href="{{ url('/portfolio') }}" class="nav-item {{ request()->is('portfolio') ? 'active' : '' }}">Projects</a>
+                <a href="{{ url('/contact') }}" class="nav-item {{ request()->is('contact') ? 'active' : '' }}">Contact</a>
             </nav>
 
             <!-- HIRE ME BUTTON -->
-            <a href="{{ route('contact') }}" class="cta-btn">Hire Me</a>
+            <a href="{{ url('/contact') }}" class="cta-btn">Hire Me</a>
 
             <!-- MOBILE MENU BUTTON -->
             <button class="mobile-btn" id="mobileBtn">
@@ -45,120 +45,51 @@
             </div>
 
             <nav class="mobile-nav">
-                <a href="{{ route('home') }}" class="mobile-nav-item {{ request()->is('/') ? 'active' : '' }}">
+                <a href="{{ url('/') }}" class="mobile-nav-item {{ request()->is('/') ? 'active' : '' }}">
                     <i class="fas fa-home"></i>Home
                 </a>
-                <a href="{{ route('about') }}" class="mobile-nav-item {{ request()->is('about') ? 'active' : '' }}">
+                <a href="{{ url('/about') }}" class="mobile-nav-item {{ request()->is('about') ? 'active' : '' }}">
                     <i class="fas fa-user"></i>About
                 </a>
-                <a href="{{ route('portfolio') }}" class="mobile-nav-item {{ request()->is('portfolio') ? 'active' : '' }}">
+                <a href="{{ url('/portfolio') }}" class="mobile-nav-item {{ request()->is('portfolio') ? 'active' : '' }}">
                     <i class="fas fa-briefcase"></i>Projects
                 </a>
-                <a href="{{ route('contact') }}" class="mobile-nav-item {{ request()->is('contact') ? 'active' : '' }}">
+                <a href="{{ url('/contact') }}" class="mobile-nav-item {{ request()->is('contact') ? 'active' : '' }}">
                     <i class="fas fa-envelope"></i>Contact
                 </a>
             </nav>
 
             <div class="mobile-menu-footer">
-                <a href="{{ route('contact') }}" class="mobile-cta-btn">
+                <a href="{{ url('/contact') }}" class="mobile-cta-btn">
                     <i class="fas fa-paper-plane"></i>Hire Me
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- HEADER JAVASCRIPT -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const header = document.getElementById('mainHeader');
-        const mobileBtn = document.getElementById('mobileBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileCloseBtn = document.getElementById('mobileCloseBtn');
-        const body = document.body;
-
-        let lastScrollY = window.scrollY;
-
-        // Scroll effect - header always show, no hide
-        window.addEventListener('scroll', function() {
-            // Header always visible rahega, koi hide effect nahi
-            lastScrollY = window.scrollY;
-        });
-
-        // Mobile menu functionality
-        if (mobileBtn && mobileMenu && mobileCloseBtn) {
-            // Open mobile menu
-            mobileBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                mobileMenu.classList.add('active');
-                body.style.overflow = 'hidden';
-                this.classList.add('active');
-            });
-
-            // Close mobile menu
-            mobileCloseBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                mobileMenu.classList.remove('active');
-                body.style.overflow = '';
-                mobileBtn.classList.remove('active');
-            });
-
-            // Close menu when clicking on navigation links
-            const mobileLinks = mobileMenu.querySelectorAll('.mobile-nav-item');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenu.classList.remove('active');
-                    body.style.overflow = '';
-                    mobileBtn.classList.remove('active');
-                });
-            });
-
-            // Close menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (mobileMenu.classList.contains('active') &&
-                    !mobileMenu.contains(e.target) &&
-                    !mobileBtn.contains(e.target)) {
-                    mobileMenu.classList.remove('active');
-                    body.style.overflow = '';
-                    mobileBtn.classList.remove('active');
-                }
-            });
-
-            // Close menu with Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-                    mobileMenu.classList.remove('active');
-                    body.style.overflow = '';
-                    mobileBtn.classList.remove('active');
-                }
-            });
-        }
-    });
-    </script>
-
     <!-- HEADER CSS STYLES -->
     <style>
+    /* FontAwesome CDN - ADD THIS */
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
     /* Base Header Styles - Dark Header */
     .glass-header {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        background: linear-gradient(to right, #111827, #581c87, #111827)
+        background: linear-gradient(to right, #111827, #581c87, #111827);
         backdrop-filter: blur(20px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         z-index: 1000;
         transition: all 0.3s ease;
-    }
-    header{
         height: 70px;
     }
 
-    /* Header Content */
     .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 1rem;
-
     }
 
     .header-content {
@@ -166,7 +97,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 1rem 0;
-        height: 40px;
+        height: 70px;
     }
 
     /* Logo Styles */
@@ -409,10 +340,65 @@
             padding: 0.75rem 0;
         }
     }
-
-    /* Prevent body scroll when menu is open */
-    body.no-scroll {
-        overflow: hidden;
-    }
     </style>
+
+    <!-- HEADER JAVASCRIPT -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const header = document.getElementById('mainHeader');
+        const mobileBtn = document.getElementById('mobileBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+        const body = document.body;
+
+        // Mobile menu functionality
+        if (mobileBtn && mobileMenu && mobileCloseBtn) {
+            // Open mobile menu
+            mobileBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mobileMenu.classList.add('active');
+                body.style.overflow = 'hidden';
+                this.classList.add('active');
+            });
+
+            // Close mobile menu
+            mobileCloseBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mobileMenu.classList.remove('active');
+                body.style.overflow = '';
+                mobileBtn.classList.remove('active');
+            });
+
+            // Close menu when clicking on navigation links
+            const mobileLinks = mobileMenu.querySelectorAll('.mobile-nav-item');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    body.style.overflow = '';
+                    mobileBtn.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (mobileMenu.classList.contains('active') &&
+                    !mobileMenu.contains(e.target) &&
+                    !mobileBtn.contains(e.target)) {
+                    mobileMenu.classList.remove('active');
+                    body.style.overflow = '';
+                    mobileBtn.classList.remove('active');
+                }
+            });
+
+            // Close menu with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    body.style.overflow = '';
+                    mobileBtn.classList.remove('active');
+                }
+            });
+        }
+    });
+    </script>
 </header>
